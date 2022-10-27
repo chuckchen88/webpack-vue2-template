@@ -1,0 +1,1 @@
+A simple Vue 2.0 Webpack & vue-loader setup for quick prototyping. 
