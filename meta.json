@@ -20,9 +20,20 @@
         "label": "License",
         "default": "MIT"
       },
+      "mainFileName": {
+        "type": "string",
+        "required": true,
+        "label": "the key main's value in package.json",
+        "default": "build.min.js"
+      },
       "sass": {
          "type": "confirm",
          "message": "Use sass?",
+         "default": false
+      },
+      "private": {
+         "type": "confirm",
+         "message": "Is private?",
          "default": false
       }
     },

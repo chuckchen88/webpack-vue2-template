@@ -1,6 +1,6 @@
 // node 内置模块
 const path = require('path')
-var webpack = require('webpack')
+//var webpack = require('webpack')
 // 用于打包html
 //const HtmlWebpackPlugin = require('html-webpack-plugin')  
 // 最新的 vue-loader 中，VueLoaderPlugin 插件的位置有所改变
@@ -8,10 +8,14 @@ const { VueLoaderPlugin } = require('vue-loader')
 
 var entry = "./src/main.js";
 var filename = "build.js";
+var sourceMap = 'eval-source-map' // 保证运行时报错的行数与源代码的行数保持一致
+var hints = 'warning'
 
 if (process.env.NODE_ENV !== "development") {
   entry = "./src/plugins/index.js";
-  filename = "Menus.min.js";
+  filename = "{{ mainFileName }}";
+  sourceMap = 'nosources-source-map'  // 只想定位报错的具体行数，且不想暴露源码
+  hints = false
 }
 // 导出webpack配置信息
 module.exports = {
@@ -30,12 +34,35 @@ module.exports = {
     port: 8080,
     open:true
   },
+//   externals: {
+//     vue: "vue"  // 忽略vue模块
+//   },
   module: {
     rules: [
         //vue
       {
         test: /\.vue$/,
-        loader: 'vue-loader'
+        loader: 'vue-loader',
+        options: {
+          loaders: {
+            {{#sass}}
+            // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
+            // the "scss" and "sass" values for the lang attribute to the right configs here.
+            // other preprocessors should work out of the box, no loader config like this necessary.
+            'scss': [
+              'vue-style-loader',
+              'css-loader',
+              'sass-loader'
+            ],
+            'sass': [
+              'vue-style-loader',
+              'css-loader',
+              'sass-loader?indentedSyntax'
+            ]
+            {{/sass}}
+          }
+          // other vue-loader options go here
+        }
       },
       // 它会应用到普通的 `.css` 文件
       // 以及 `.vue` 文件中的 `<style>` 块
@@ -45,7 +72,27 @@ module.exports = {
           'vue-style-loader',
           'css-loader'
         ]
+      },{{#sass}}
+      {
+        test: /\.scss$/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          'sass-loader'
+        ],
       },
+      {
+        test: /\.sass$/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          'sass-loader?indentedSyntax'
+        ],
+      },
+      {{/sass}}
+      /**
+       * 将es6转es5
+       */
       {
         test: /\.m?js$/,
         exclude: /(node_modules|bower_components)/,
@@ -56,6 +103,7 @@ module.exports = {
           }
         }
       },
+      // 图片文件处理
       {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
@@ -66,6 +114,7 @@ module.exports = {
       }
     ]
   },
+  // 插件
   plugins: [
     // new HtmlWebpackPlugin({
     //   template: path.resolve(__dirname, './index.html'), // 我们要使用的 html 模板地址
@@ -77,14 +126,23 @@ module.exports = {
      */
     new VueLoaderPlugin()
   ],
+  // 解析
   resolve: {
+    // 创建 import 或 require 的别名，来确保模块引入变得更简单。
     alias: {
       'vue$': 'vue/dist/vue.esm.js'
     },
+    //尝试按顺序解析这些后缀名
     extensions: ['*', '.js', '.vue', '.json']
   },
+  // 配置如何展示性能提示
   performance: {
-    hints: false
+    hints  // 判断是否有体积比较大的 bundle 
   },
-  devtool: 'inline-source-map'
+  /**
+   * Source Map 的最佳实践：
+    ① 开发环境下： 建议把 devtool 的值设置为 eval-source-map  好处：可以精准定位到具体的错误行。
+    ② 生产环境下： 建议关闭 Source Map 或将 devtool 的值设置为 nosources-source-map 好处：防止源码泄露，提高网站的安全性。
+   */
+  devtool: sourceMap  // sourcemap用于储存着位置信息，出错的时候，除错工具将直接显示原始代码，而不是转换后的代码
 }
