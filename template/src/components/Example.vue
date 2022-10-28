@@ -1,13 +1,13 @@
   <template>
     <div>
-      我是菜单组件
+      我是示例1组件
       <div class="box"></div>
     </div>
   </template>
   
   <script>
     export default {
-      name:'Menus'
+      name:'Example'
     };
   </script>
   <style scoped lang="less">

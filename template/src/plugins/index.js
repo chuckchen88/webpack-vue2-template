@@ -1,20 +1,30 @@
-import Example from "../component/Example.vue";
+//index.js
+import Example from "../components/Example.vue"; // 引入封装好的组件
+import Example2 from "../components/Example2.vue"; // 引入封装好的组件
 
-const components = [Example];
+import * as filters from "../filters"
 
-//注册组件
-const install = function (Vue, options) {
-    components.forEach((component) => { 
-        Vue.component(component.name, component);
+export { Example, Example2, filters } //实现按需引入*
+ 
+const components = [ Example, Example2 ];
+
+const install = function(App, options) {
+    // 全局添加组件
+    components.forEach((component) => {
+        App.component(component.name, component);
     });
+
+    // 全局过滤器
+    Object.keys(filters).map( item => {
+      App.filter(item, filters[item])
+    })
+    
+    // 全局指令
+
+    // 全局混入
+
+    // 扩展Vue原型
+    App.prototype.$hello = () => { console.log('hello') }
 };
 
-/* 支持使用标签的方式引入 Vue是全局变量时，自动install */
-if (typeof window !== "undefined" && window.Vue) {
-  install(window.Vue);
-}
-
-export default {
-  install,  //用于全局注册组件时，vue.use使用
-  ...components, //用于局部使用
-};
+export default { install } // 批量的引入*

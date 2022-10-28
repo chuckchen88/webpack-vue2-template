@@ -1,10 +1,11 @@
 <template>
   <div id="app">
-    <Example />
+    <!-- <Example /> -->
     <img :src="logo" />
   </div>
 </template>
 <script>
+  import { filters } from './plugins'
 
   export default {
     name: "app",

@@ -7,8 +7,8 @@
 $ yarn add -g vue-cli
 $ vue init chuckchen88/webpack-vue2-template my-project
 $ cd my-project
-$ yarn install
-$ yarn run dev
+$ yarn
+$ yarn dev
 ```
 
 ### vue组件或插件开发
