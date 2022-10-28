@@ -1,6 +1,6 @@
-import Menus from "../component/Menus.vue";
+import Example from "../component/Example.vue";
 
-const components = [Menus];
+const components = [Example];
 
 //注册组件
 const install = function (Vue, options) {

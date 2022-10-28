@@ -9,7 +9,7 @@ const { VueLoaderPlugin } = require('vue-loader')
 var entry = "./src/main.js";
 var filename = "build.js";
 var sourceMap = 'eval-source-map' // 保证运行时报错的行数与源代码的行数保持一致
-var hints = 'warning'
+var hints = false
 
 if (process.env.NODE_ENV !== "development") {
   entry = "./src/plugins/index.js";
@@ -42,27 +42,7 @@ module.exports = {
         //vue
       {
         test: /\.vue$/,
-        loader: 'vue-loader',
-        options: {
-          loaders: {
-            {{#sass}}
-            // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
-            // the "scss" and "sass" values for the lang attribute to the right configs here.
-            // other preprocessors should work out of the box, no loader config like this necessary.
-            'scss': [
-              'vue-style-loader',
-              'css-loader',
-              'sass-loader'
-            ],
-            'sass': [
-              'vue-style-loader',
-              'css-loader',
-              'sass-loader?indentedSyntax'
-            ]
-            {{/sass}}
-          }
-          // other vue-loader options go here
-        }
+        loader: 'vue-loader'
       },
       // 它会应用到普通的 `.css` 文件
       // 以及 `.vue` 文件中的 `<style>` 块
@@ -72,24 +52,13 @@ module.exports = {
           'vue-style-loader',
           'css-loader'
         ]
-      },{{#sass}}
+      },{{#less}}
+      // less
       {
-        test: /\.scss$/,
-        use: [
-          'vue-style-loader',
-          'css-loader',
-          'sass-loader'
-        ],
+        test: /\.less$/,
+        use: ['vue-style-loader', 'css-loader', 'less-loader'] //还需安装less
       },
-      {
-        test: /\.sass$/,
-        use: [
-          'vue-style-loader',
-          'css-loader',
-          'sass-loader?indentedSyntax'
-        ],
-      },
-      {{/sass}}
+      {{/less}}
       /**
        * 将es6转es5
        */
@@ -130,7 +99,7 @@ module.exports = {
   resolve: {
     // 创建 import 或 require 的别名，来确保模块引入变得更简单。
     alias: {
-      'vue$': 'vue/dist/vue.esm.js'
+      '@': path.resolve(__dirname, 'src'),
     },
     //尝试按顺序解析这些后缀名
     extensions: ['*', '.js', '.vue', '.json']

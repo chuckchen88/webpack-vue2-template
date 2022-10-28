@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Menus />
+    <Example />
     <img :src="logo" />
   </div>
 </template>

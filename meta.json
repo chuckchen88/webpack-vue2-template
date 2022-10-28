@@ -26,9 +26,9 @@
         "label": "the key main's value in package.json",
         "default": "build.min.js"
       },
-      "sass": {
+      "less": {
          "type": "confirm",
-         "message": "Use sass?",
+         "message": "Use less?",
          "default": false
       },
       "private": {
