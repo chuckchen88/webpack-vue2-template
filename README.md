@@ -4,7 +4,7 @@
 
 ### 使用
 ``` bash
-$ yarn add -g vue-cli
+$ yarn global add @vue/cli
 $ vue init chuckchen88/webpack-vue2-template my-project
 $ cd my-project
 $ yarn
@@ -27,5 +27,8 @@ $ npm unlink packageName # 其他项目中解除引用这个包（必须）
 
 # 发布
 $ npm publish
+
+# 删除已发布的包(只能删除72小时内上传的包，且24小时内无法重新上传同名的包)
+$ npm unpublish packageName --force
 ```
 

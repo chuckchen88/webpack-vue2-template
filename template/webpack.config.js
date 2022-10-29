@@ -12,8 +12,8 @@ var sourceMap = 'eval-source-map' // 保证运行时报错的行数与源代码�
 var hints = false
 
 if (process.env.NODE_ENV !== "development") {
-  entry = "./src/plugins/index.js";
-  filename = "{{ mainFileName }}";
+  entry = "./src/plugins/index.js";  // 打包入口
+  filename = "main.min.js";
   sourceMap = 'nosources-source-map'  // 只想定位报错的具体行数，且不想暴露源码
   hints = false
 }

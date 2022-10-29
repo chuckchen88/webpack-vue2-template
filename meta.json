@@ -20,16 +20,10 @@
         "label": "License",
         "default": "MIT"
       },
-      "mainFileName": {
-        "type": "string",
-        "required": true,
-        "label": "the key main's value in package.json",
-        "default": "build.min.js"
-      },
       "less": {
          "type": "confirm",
          "message": "Use less?",
-         "default": false
+         "default": true
       },
       "private": {
          "type": "confirm",

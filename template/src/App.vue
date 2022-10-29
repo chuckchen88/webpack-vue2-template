@@ -1,19 +1,51 @@
 <template>
   <div id="app">
-    <!-- <Example /> -->
+    <Example />
+    <hr />
+    <Example2 :msg="msg" @custom-event="customEvent"/>
+    <hr />
     <img :src="logo" />
+    <hr />
+    <div>{{ str | reverse}}</div>
+    <hr />
+    <input type="text" v-autoFocus>
+    <hr />
+    <button v-clickCopy="copyInfo">一件复制</button>
+    <hr />
+    <button @click="historyBack()"> 返回</button>
+    <hr />
+    <button @click="$hello">全局方法</button>
   </div>
 </template>
 <script>
-  import { filters } from './plugins'
+  // 局部引入
+  // import { Example, reverse, autoFocus, clickCopy, mixins as hb  } from './plugins'
 
   export default {
     name: "app",
     data(){
       return {
-        logo: require('./assets/logo.png')
+        logo: require('./assets/logo.png'),
+        str: '1234567',
+        msg: '我是传递到Example2的数据',
+        copyInfo: '我是复制的信息'
       }
     },
-    components: {}
+    // components: {
+    //   Example
+    // },
+    // mixins: [ hb ],
+    // filters:{
+    //   reverse
+    // },
+    // directives: {
+    //   autoFocus,
+    //   clickCopy
+    // },
+    methods:{
+      customEvent(v){
+        console.log(v)
+      }
+    }
   };
 </script>
