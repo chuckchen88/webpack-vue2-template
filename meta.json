@@ -24,11 +24,6 @@
          "type": "confirm",
          "message": "Use less?",
          "default": true
-      },
-      "private": {
-         "type": "confirm",
-         "message": "Is private?",
-         "default": false
       }
     },
     "completeMessage": "{{#inPlace}}To get started:\n\n  yarn\n  yarn dev{{else}}To get started:\n\n  cd {{destDirName}}\n  yarn\n  yarn dev{{/inPlace}}"

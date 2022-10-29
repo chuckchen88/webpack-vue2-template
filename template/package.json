@@ -3,7 +3,7 @@
   "description": "{{ description }}",
   "version": "1.0.0",
   "author": "{{ author }}",
-  "private": "{{ private }}",
+  "private": false,
   "main": "dist/main.min.js",
   "files": [
     "dist"
