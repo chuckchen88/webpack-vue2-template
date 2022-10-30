@@ -6,8 +6,6 @@
     <hr />
     <img :src="logo" />
     <hr />
-    <!--这里meta.json会误识别变量，脚手架下下来后打开去掉注释就行了-->
-    <!-- <div>{{ str | reverse}}</div> -->
     <hr />
     <input type="text" v-autoFocus>
     <hr />
