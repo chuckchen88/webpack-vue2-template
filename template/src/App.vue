@@ -14,12 +14,12 @@
     <hr />
     <button @click="historyBack()"> 返回</button>
     <hr />
-    <button @click="$hello">全局方法</button>
+    <!-- <button @click="$hello">全局方法</button> -->
   </div>
 </template>
 <script>
   // 局部引入
-  // import { Example, reverse, autoFocus, clickCopy, mixins as hb  } from './plugins'
+  import { Example, reverse, autoFocus, clickCopy, mixins as hb  } from './plugins'
 
   export default {
     name: "app",
@@ -31,17 +31,17 @@
         copyInfo: '我是复制的信息'
       }
     },
-    // components: {
-    //   Example
-    // },
-    // mixins: [ hb ],
-    // filters:{
-    //   reverse
-    // },
-    // directives: {
-    //   autoFocus,
-    //   clickCopy
-    // },
+    components: {
+      Example
+    },
+    mixins: [ hb ],
+    filters:{
+      reverse
+    },
+    directives: {
+      autoFocus,
+      clickCopy
+    },
     methods:{
       customEvent(v){
         console.log(v)
