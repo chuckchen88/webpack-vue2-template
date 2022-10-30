@@ -6,7 +6,8 @@
     <hr />
     <img :src="logo" />
     <hr />
-    <div>{{ str | reverse}}</div>
+    <!--这里meta.json会误识别变量，脚手架下下来后打开去掉注释就行了-->
+    <!-- <div>{{ str | reverse}}</div> -->
     <hr />
     <input type="text" v-autoFocus>
     <hr />
@@ -14,6 +15,7 @@
     <hr />
     <button @click="historyBack()"> 返回</button>
     <hr />
+    <!-- 全局方法 必须全局注册才能用 -->
     <!-- <button @click="$hello">全局方法</button> -->
   </div>
 </template>
